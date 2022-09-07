@@ -9,7 +9,7 @@
   <input
     class="form-control me-2"
     type="search"
-    placeholder="Get Stock Quote"
+    placeholder="Add Stock to Portfolio"
     aria-label="Search"
     name="stonks"
   />
@@ -19,5 +19,8 @@
 </form>
 <br />
 <!-- END SEARCH BAR ----------------------------------------------- -->
-{% for item in ticker %} {{ item }} <br />
-{% endfor %} {% endblock %}
+{% for item in ticker %} 
+  {{ item }} | <a href="{% url 'delete' item.id %}">Delete Stock</a> <br />
+{% endfor %} 
+
+{% endblock %}
