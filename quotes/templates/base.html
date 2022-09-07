@@ -34,11 +34,23 @@
         <!-- MOBILE TOGGLE END ----------------------------------------- -->
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- NAV LINKS -------------------------------------------------------- -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <!-- START NAV LINK ---------------------------------------- -->
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li> 
+            <!-- END NAV LINK -------------------------------------------- -->
+
+            <!-- START NAV LINK ---------------------------------------- -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'add_stock' %}">Track Stonks</a>
+            </li> 
+            <!-- END NAV LINK -------------------------------------------- -->
+
           </ul>
+          <!-- END NAV LINKS ---------------------------------------------------------- -->
 
           <!-- SEARCH BAR -------------------------------------------------------- -->
           <form action="{% url 'home' %}" class="d-flex" role="search" method="POST">
@@ -48,10 +60,10 @@
               type="search"
               placeholder="Get Stock Quote"
               aria-label="Search"
-              name="ticker"
+              name="ticker_symbol"
             />
             <button class="btn btn-outline-success" type="submit">
-              Search
+              Stonks
             </button>
           </form>
           <!-- END SEARCH BAR ----------------------------------------------- -->

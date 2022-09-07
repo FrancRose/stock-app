@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Add Stock</h1>
+<br />
+
+<!-- SEARCH BAR -------------------------------------------------------- -->
+<form action="{% url 'add_stock' %}" class="d-flex" role="search" method="POST">
+  {% csrf_token %}
+  <input
+    class="form-control me-2"
+    type="search"
+    placeholder="Get Stock Quote"
+    aria-label="Search"
+    name="stonks"
+  />
+  <button class="btn btn-outline-success text-nowrap" type="submit">
+    Stonk Me
+  </button>
+</form>
+<br />
+<!-- END SEARCH BAR ----------------------------------------------- -->
+{% for item in ticker %} {{ item }} <br />
+{% endfor %} {% endblock %}
