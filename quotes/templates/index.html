@@ -10,18 +10,54 @@
     {% if api == "ERROR" %}
         There was an error searching the submitted ticker symbol, please try your search again
     {% else %}
+    
+    <div class="card" style="width: 18rem;">
+        <img src={{ logo.url }} class="card-img-top w-50 mx-auto" alt="company logo">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
 
-        <h1>{{ api.companyName }}</h1><br>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ api.companyName }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ api.symbol }}</h6>
+          <p class="card-text">
+            Price: ${{ api.latestPrice }}<br/>
+            Previous Close: {{ api.previousClose }}<br/>
+            Market Cap: {{ api.marketCap }}<br/>
+            YTD Change: {{  api.ytdChange }}<br/>
+            52 WK High: {{ api.week52High }}<br/>
+            52 WK Low: {{ api.week52Low }}<br/></p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+
+        <!-- <h1>{{ api.companyName }}</h1><br>
         Price: ${{ api.latestPrice }}<br/>
         Previous Close: {{ api.previousClose }}<br/>
         Market Cap: {{ api.marketCap }}<br/>
         Year To Date Change: {{ api.ytdChange }}<br/>
         52 WK High: {{ api.week52High }}<br/>
         52 WK Low: {{ api.week52Low }}<br/>
-        {{ api. }}<br/>
+        {{ api. }}<br/> -->
 
 
     {% endif %}
 {% endif %}
+
+{{ logo }} <br><br>
+{{ api }}
 
 {% endblock %}
