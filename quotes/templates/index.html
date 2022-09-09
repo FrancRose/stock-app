@@ -14,37 +14,58 @@
     <div class="card" style="width: 18rem;">
         <img src={{ logo.url }} class="card-img-top w-50 mx-auto" alt="company logo">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">{{ api.companyName }}</h5>
+            <p class="card-text">{{ api.symbol }}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
+            <li class="list-group-item">Price: ${{ api.latestPrice }}</li>
+            <li class="list-group-item">Previous Close: ${{ api.previousClose }}</li>
+            <li class="list-group-item">YTD Change: {{  api.ytdChange|stringformat:".4f" }}%</li>
+            <li class="list-group-item">52 WK High: {{ api.week52High }}</li>
+            <li class="list-group-item">52 WK Low: {{ api.week52Low }}</li>
         </ul>
         <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+            <a href="https://finance.yahoo.com/quote/{{ api.symbol }}" class="card-link">Full Breakdown</a>
+            <a href="#" class="card-link">Another link</a>
         </div>
-      </div>
+    </div>
 
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{ api.companyName }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ api.symbol }}</h6>
-          <p class="card-text">
-            Price: ${{ api.latestPrice }}<br/>
-            Previous Close: {{ api.previousClose }}<br/>
-            Market Cap: {{ api.marketCap }}<br/>
-            YTD Change: {{  api.ytdChange }}<br/>
-            52 WK High: {{ api.week52High }}<br/>
-            52 WK Low: {{ api.week52Low }}<br/></p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
+    
+        
+        <br><br>
+        
+    {% endif %}
+    
+    
+    {% for list_item in news %}
+        <tr>
+          <th scope="row">{{ list_item.headline }}</th> <br>
+          <th scope="row">{{ list_item.summary }}</th> <br>
+          <td>{{ list_item.datetime }}</td> <br>
+          
+        </tr>
+        
+          <div class="card mb-3">
+            <img src={{ list_item.image }} class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ list_item.headline }}</h5>
+              <p class="card-text">{{ list_item.summary }}</p>
+              <p class="card-text"><a href={{ list_item.url }}>Read More</a></p>
+            </div>
+          </div>
+          
 
-        <!-- <h1>{{ api.companyName }}</h1><br>
+      {% endfor %}
+
+{% endif %}
+
+<br><br><br>
+{{news}}
+<br><br><br>
+{{ api }}
+{% endblock %}
+
+<!-- <h1>{{ api.companyName }}</h1><br>
         Price: ${{ api.latestPrice }}<br/>
         Previous Close: {{ api.previousClose }}<br/>
         Market Cap: {{ api.marketCap }}<br/>
@@ -53,11 +74,25 @@
         52 WK Low: {{ api.week52Low }}<br/>
         {{ api. }}<br/> -->
 
+<!-- {% for list_item in news %}
+        <tr>
+          <th scope="row">{{ list_item.headline }}</th> <br>
+          <td>{{ list_item.datetime }}</td> <br>
+          
+        </tr>
+      {% endfor %} -->
 
-    {% endif %}
-{% endif %}
-
-{{ logo }} <br><br>
-{{ api }}
-
-{% endblock %}
+<!-- <div class="card mb-3" style="max-width: 840px; height: 100%;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src={{ list_item.image }} class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ list_item.headline }}</h5>
+                  <p class="card-text">{{ list_item.summary }}</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
+            </div>
+          </div> -->
