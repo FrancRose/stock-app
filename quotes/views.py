@@ -14,7 +14,7 @@ def home(request):
         ticker = request.POST['ticker_symbol']
         api_call = requests.get("https://cloud.iexapis.com/stable/stock/" +  ticker + "/quote?token=pk_7da063ed32a0479b93e5e2e9cd6d7619")
         logo_call = requests.get("https://cloud.iexapis.com/stable/stock/" +  ticker + "/logo?token=pk_7da063ed32a0479b93e5e2e9cd6d7619")
-        news_call = requests.get("https://cloud.iexapis.com/stable/stock/" +  ticker + "/news?token=pk_7da063ed32a0479b93e5e2e9cd6d7619")
+        news_call = requests.get("https://cloud.iexapis.com/stable/stock/" +  ticker + "/news/last/10?token=pk_7da063ed32a0479b93e5e2e9cd6d7619")
 
         try:
             api = json.loads(api_call.content)

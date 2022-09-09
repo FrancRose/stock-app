@@ -5,8 +5,67 @@
     {{ ticker }}
 {% endif %}
 
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      {% if api %}
+      {% if api == "ERROR" %}
+          There was an error searching the submitted ticker symbol, please try your search again
+      {% else %}
+      
+      <div class="card position-fixed" style="width: 18rem;">
+          <img src={{ logo.url }} class="card-img-top w-50 mx-auto pt-2" alt="company logo">
+          <div class="card-body">
+              <h5 class="card-title">{{ api.companyName }}</h5>
+              <p class="card-text">{{ api.symbol }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item">Price: ${{ api.latestPrice }}</li>
+              <li class="list-group-item">Previous Close: ${{ api.previousClose }}</li>
+              <li class="list-group-item">YTD Change: {{  api.ytdChange|stringformat:".4f" }}%</li>
+              <li class="list-group-item">52 WK High: {{ api.week52High }}</li>
+              <li class="list-group-item">52 WK Low: {{ api.week52Low }}</li>
+          </ul>
+          <div class="card-body">
+              <a href="https://finance.yahoo.com/quote/{{ api.symbol }}" target="_blank" class="card-link">Full Breakdown</a>
+              <a href="https://money.cnn.com/quote/forecast/forecast.html?symb={{ api.symbol }}" target="_blank" class="card-link">Forecast</a>
+          </div>
+      </div>
+          
+      {% endif %}
 
-{% if api %}
+    </div>
+    <div class="col-9">
+      <div class="font-monospace text-center text-decoration-underline mb-2"><h1>LATEST HEADLINES</h1></div>
+      
+      {% for list_item in news %}
+
+        
+      
+        <div class="card mb-3">
+          <img src={{ list_item.image }} class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ list_item.headline }}</h5>
+            <p class="card-text">{{ list_item.summary }}</p>
+            <div class="d-flex justify-content-center">
+            <p class="card-text fw-bold me-2">Source: {{ list_item.source }}</p>
+            <p class="card-text "><a href={{ list_item.url }}>Read More</a></p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+{% endif %}
+    </div>
+  </div>
+</div>
+
+<br><br><br>
+{{news}}
+<br><br><br>
+{{ api }}
+{% endblock %}
+<!-- {% if api %}
     {% if api == "ERROR" %}
         There was an error searching the submitted ticker symbol, please try your search again
     {% else %}
@@ -29,15 +88,13 @@
             <a href="#" class="card-link">Another link</a>
         </div>
     </div>
+        
+    {% endif %} -->
+    
+    
+    <!-- {% for list_item in news %}
 
-    
-        
-        <br><br>
-        
-    {% endif %}
-    
-    
-    {% for list_item in news %}
+      
         <tr>
           <th scope="row">{{ list_item.headline }}</th> <br>
           <th scope="row">{{ list_item.summary }}</th> <br>
@@ -57,13 +114,9 @@
 
       {% endfor %}
 
-{% endif %}
+{% endif %} -->
 
-<br><br><br>
-{{news}}
-<br><br><br>
-{{ api }}
-{% endblock %}
+
 
 <!-- <h1>{{ api.companyName }}</h1><br>
         Price: ${{ api.latestPrice }}<br/>
