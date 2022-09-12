@@ -32,7 +32,22 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'about.html', {})
+    import alpaca_trade_api as trader
+    import requests
+    import json
+
+    API_KEY = "PKOPIIAAYFNDUPDLUSBY"
+    API_SECRET = "7HQ2vdjONWjiFNfKH0hhNTOEy9ccTzQF6nYQaUPe"
+    BASE_URL = "https://paper-api.alpaca.markets"
+
+    alpaca = trader.REST(API_KEY, API_SECRET, BASE_URL)
+    
+    account_call = alpaca.get_account()
+    positions = alpaca.list_positions()
+    # order = alpaca.submit_order('AAPL', qty = 50)
+    
+        
+    return render(request, 'about.html', {'account_call': account_call, 'positions': positions, })
 
 def add_stock(request):
     import requests

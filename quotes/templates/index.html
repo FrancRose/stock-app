@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-3">
       {% if api %}
-      {% if api == "ERROR" %}
+      {% if api == "API ERROR" %}
           There was an error searching the submitted ticker symbol, please try your search again
       {% else %}
       
@@ -37,23 +37,24 @@
     </div>
     <div class="col-9">
       <div class="font-monospace text-center text-decoration-underline mb-2"><h1>LATEST HEADLINES</h1></div>
-      
-      {% for list_item in news %}
-
-        
-      
-        <div class="card mb-3">
-          <img src={{ list_item.image }} class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ list_item.headline }}</h5>
-            <p class="card-text">{{ list_item.summary }}</p>
-            <div class="d-flex justify-content-center">
-            <p class="card-text fw-bold me-2">Source: {{ list_item.source }}</p>
-            <p class="card-text "><a href={{ list_item.url }}>Read More</a></p>
+      {% if news == "NEWS ERROR"%}
+        There was an error searching the submitted ticker symbol, please try your search again
+      {% else %}
+        {% for list_item in news %}
+          
+          <div class="card mb-3">
+            <img src={{ list_item.image }} class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ list_item.headline }}</h5>
+              <p class="card-text">{{ list_item.summary }}</p>
+              <div class="d-flex justify-content-center">
+              <p class="card-text fw-bold me-2">Source: {{ list_item.source }}</p>
+              <p class="card-text "><a href={{ list_item.url }}>Read More</a></p>
+              </div>
             </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
 
 {% endif %}
     </div>
