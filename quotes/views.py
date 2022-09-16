@@ -3,7 +3,9 @@
 
 from django.shortcuts import render, redirect
 from .models import Stock
+from .models import Trade
 from .forms import StockForm
+from .forms import TradeForm
 from django.contrib import messages
 
 def home(request):
@@ -30,24 +32,69 @@ def home(request):
     else:
         return render(request, 'index.html', {'ticker': "Enter a Ticker Symbol in the search box above"})
 
+def trade(request):
+    import alpaca_trade_api as trader
+    import requests
+    import json
+    
+    API_KEY = "PKT4ENR9VZAGSL1U8SY5"
+    API_SECRET = "dOVfXJolecFXd5jFeLtAAJ4hp7FCDk6mkOW17ScE"
+    BASE_URL = "https://paper-api.alpaca.markets"
+    alpaca = trader.REST(API_KEY, API_SECRET, BASE_URL)
+    # if request.method == "POST":
+    #     form = TradeForm(request.POST or None)
+
+    #     if form.is_valid():
+    #         form.save()
+    #         messages.success(request, ("Trade Submitted"))
+    #         return redirect('trade')
+    # else:
+    #     trades = Trade.objects.all()
+    #     return render(request, 'trade.html', {'trades': trades})
+    
+    if request.method == "POST":
+        form = TradeForm(request.POST or None)
+        symbol = request.POST['symbol']
+        qty = request.POST['qty']
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Trade Submitted"))
+            return redirect('trade')
+            
+    else:
+        trades = Trade.objects.all()
+        output = []
+
+        for trade in trades:
+            # order = alpaca.submit_order(trade.symbol, trade.qty)
+
+            try:
+                api = json.loads(order.content)
+                output.append(api)
+            except Exception as e:
+                api = "TRADE ERROR"
+
+        return render(request, 'trade.html', {'trades': trades, 'output': output})
+    
+    
+
 
 def about(request):
     import alpaca_trade_api as trader
     import requests
     import json
 
-    API_KEY = "PKOPIIAAYFNDUPDLUSBY"
-    API_SECRET = "7HQ2vdjONWjiFNfKH0hhNTOEy9ccTzQF6nYQaUPe"
+    API_KEY = "PKT4ENR9VZAGSL1U8SY5"
+    API_SECRET = "dOVfXJolecFXd5jFeLtAAJ4hp7FCDk6mkOW17ScE"
     BASE_URL = "https://paper-api.alpaca.markets"
-
     alpaca = trader.REST(API_KEY, API_SECRET, BASE_URL)
-    
+
+    account_call = alpaca.get_account()
     account_call = alpaca.get_account()
     positions = alpaca.list_positions()
-    # order = alpaca.submit_order('AAPL', qty = 50)
-    
-        
-    return render(request, 'about.html', {'account_call': account_call, 'positions': positions, })
+
+    return render(request, 'about.html', {'account_call': account_call, 'positions': positions,})
 
 def add_stock(request):
     import requests

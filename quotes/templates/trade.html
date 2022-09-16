@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content%}
+
+
+
+
+<h1>trade</h1>
+
+
+<form action="{% url 'trade' %}" class="d-flex" role="search" method="POST">
+    {% csrf_token %}
+        <input
+        class="form-control me-2"
+        type="input"
+        placeholder="Buy Stock"
+        aria-label="Symbol"
+        name="symbol"
+        />
+
+        <input
+        class="form-control me-2"
+        type="input"
+        placeholder="Quantity"
+        aria-label="Quantity"
+        name="qty"
+        />
+    <button class="btn btn-outline-success text-nowrap" type="submit">
+        Stonk Me
+    </button>
+</form>
+    <br />
+
+    {{ output }}
+
+{% for item in trades%}
+    Trade:{{ item }} Shares:{{ item.qty }}<br>
+    {{ item.id }}
+{% endfor %}
+
+{% if trades %}
+    {{ trades }} <br>
+
+    {% for item in trades%}
+        {{ item }} <br>
+    {% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+{% endblock%}
