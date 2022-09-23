@@ -33,27 +33,28 @@
 <table class="table table-striped table-bordered table-hover">
     <thead class="table-dark">
         <tr>
+            <th scope="col">Trade ID</th>
             <th scope="col">Stock Symbol</th>
-            <th scope="col">Quantity</th>
+            <th scope="col"># of Shares</th>
+            <!-- <th scope="col">Remove Trade</th> -->
         </tr>
     </thead>
 
     <tbody>
-    {% if trades %}
-        
-        
-            {% for item in trades %}
-            <tr>
-                <th scope="row">{{ item }}</th>
-                <td>{{ item.qty }}</td>               
-                <!-- <td>{{ quote }}</td>                -->
-            </tr>
-            {% endfor %}
-        
-        
+{% if trades %}
+    {% for item in trades %}
+        <tr>
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item }}</td>               
+            <td>{{ item.qty }}</td>               
+            <!-- <td> <a href="{% url 'remove_trade' item.id %}">Delete</a> </td>                -->
+            <!-- <td>{{ quote }}</td>                -->
+        </tr>
+    {% endfor %}
 
-    
-    {% endif %}
+{% else %}
+    asdfasdf
+{% endif %}
 
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

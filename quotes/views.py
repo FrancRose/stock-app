@@ -11,8 +11,16 @@ from .forms import TradeForm
 from django.contrib import messages
 
 def home(request):
+    import alpaca_trade_api as trader
     import requests
     import json
+
+    API_KEY = "PKT4ENR9VZAGSL1U8SY5"
+    API_SECRET = "dOVfXJolecFXd5jFeLtAAJ4hp7FCDk6mkOW17ScE"
+    BASE_URL = "https://paper-api.alpaca.markets"
+    alpaca = trader.REST(API_KEY, API_SECRET, BASE_URL)
+
+    clock = alpaca.get_clock()
 
     if request.method == 'POST':
         ticker = request.POST['ticker_symbol']
@@ -28,11 +36,11 @@ def home(request):
             api = "API ERROR"
             logo = "LOGO ERROR"
             news = "NEWS ERROR"
-        return render(request, 'index.html', {'api': api, 'logo': logo, 'news': news})
+        return render(request, 'index.html', {'api': api, 'logo': logo, 'news': news, })
 
 
     else:
-        return render(request, 'index.html', {'ticker': "Enter a Ticker Symbol in the search box above"})
+        return render(request, 'index.html', {'ticker': "Enter a Ticker Symbol in the search box above", 'clock': clock})
 
 def trade(request):
     import alpaca_trade_api as trader
@@ -72,8 +80,8 @@ def trade(request):
         output = []
 
         for api_trade in trades:
-            order = alpaca.submit_order(api_trade.symbol, api_trade.qty)
-            quote = alpaca.get_latest_quote(api_trade.symbol)
+            # order = alpaca.submit_order(api_trade.symbol, api_trade.qty)
+            # quote = alpaca.get_latest_quote(api_trade.symbol)
 
             try:
                 api = json.loads(order.content)
@@ -81,10 +89,13 @@ def trade(request):
             except Exception as e:
                 api = "TRADE ERROR"
 
-        return render(request, 'trade.html', {'trades': trades, 'output': output, 'api_trade': api_trade, 'order_history': order_history, 'quote': quote})
-    
-    
+        return render(request, 'trade.html', {'trades': trades, 'output': output, 'api_trade': api_trade, 'order_history': order_history,})
 
+def remove_trade(request, trade_id):
+    item = Trade.objects.get(pk=trade_id)
+    item.delete()
+    messages.success(request, ("Trade has been removed"))
+    return redirect(trade)
 
 def about(request):
     import alpaca_trade_api as trader

@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ account_call.cash }}</p>
+                            <p class="text-muted mb-0">${{ account_call.cash }}</p>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@
                             <p class="mb-0">Portfolio Value:</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ account_call.equity }}</p>
+                            <p class="text-muted mb-0">${{ account_call.equity }}</p>
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@
                         <p class="mb-0">Value @ Previous Close:</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ account_call.last_equity }}</p>
+                        <p class="text-muted mb-0">${{ account_call.last_equity }}</p>
                     </div>
                 </div>
 
@@ -106,7 +106,7 @@
                         <p class="mb-0">Buying Power:</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ account_call.buying_power }}</p>
+                        <p class="text-muted mb-0">${{ account_call.buying_power }}</p>
                     </div>
                 </div>
 
@@ -116,7 +116,7 @@
                         <p class="mb-0">Day Trading Power:</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ account_call.daytrading_buying_power }}</p>
+                        <p class="text-muted mb-0">${{ account_call.daytrading_buying_power }}</p>
                     </div>
                 </div>
                 
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ account_call.long_market_value }}</p>
+                        <p class="text-muted mb-0">${{ account_call.long_market_value }}</p>
                     </div>
                 </div>
                 
@@ -140,7 +140,7 @@
                     </div>
 
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ account_call.short_market_value }}</p>
+                        <p class="text-muted mb-0">${{ account_call.short_market_value }}</p>
                     </div>
                 </div>
             </div>
@@ -188,50 +188,14 @@
                     
                 </div>
                 {% endfor %}
-                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
-                
-                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
-                <!-- <div class="col-md-6">
-                    <div class="card mb-4 mb-md-0">
-                        <div class="card-body">
-                            <p class="mb-4"><span class="text-success font-italic me-1">symbol</span> {{ positions.1.symbol }}</p>
-
-                            <p class="mb-1" style="font-size: .77rem;">Shares:</p>
-                            <div>
-                                <p>{{ positions.1.qty }}</p>
-                            </div>
-
-                            <p class="mb-1" style="font-size: .77rem;">Market Value:</p>
-                            <div>
-                                <p>{{ positions.1.market_value }}</p>
-                            </div>
-
-                            <p class="mb-1" style="font-size: .77rem;">Average Price:</p>
-                            <div>
-                                <p>{{ positions.1.avg_entry_price }}</p>
-                            </div>
-
-                            <p class="mb-1" style="font-size: .77rem;">Performance Today:</p>
-                            <div>
-                                <p>{{ positions.1.change_today }}</p>
-                            </div>
-
-                            <p class="mb-1" style="font-size: .77rem;">Exchange:</p>
-                            <div>
-                                <p>{{ positions.1.exchange }}</p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
-                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
-                
+                <!-- INDIVIDUAL POSITION ----------------------------------------------- --> 
             </div>
             <!-- OPEN STOCK POSITIONS ================================================= -->
         </div>
     </div>
     
 </section>
+
 
 <!-- <h1>Account</h1>
 

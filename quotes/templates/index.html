@@ -1,10 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 {% if ticker %}
-    {{ ticker }}
-    <h1>Hello</h1>
+    
+    <!-- GREETING CARD ================================================================== -->
+    <div class="container">
+      <div class="row text-center mb-3">
+        <h1>Greetings. Today is: {{ clock.timestamp }}</h1>
+      </div>
+
+      <!-- SINGLE ROW ------------------------------------------------------- -->
+      <div class="row justify-content-center">
+        <!-- ACCORDION START ------------------------------------------- -->
+        <div class="accordion accordion-flush w-25" id="accordionFlushExample">
+          <!-- SINGLE ACCORDION ITEM START --------------------------------- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Are Markets Open for Trading?
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body"><code>{{ clock.is_open }}</code></div>
+            </div>
+          </div>
+          <!-- SINGLE ACCORDION ITEM END --------------------------------- -->
+
+          <!-- SINGLE ACCORDION ITEM START--------------------------------- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                When is next Market Open?
+              </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body"><code>{{ clock.next_open }}</code></div>
+            </div>
+          </div>
+          <!-- SINGLE ACCORDION ITEM END--------------------------------- -->
+
+          <!-- SINGLE ACCORDION ITEM START--------------------------------- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                When is next Market Close?
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body"><code>{{ clock.next_close }}</code></div>
+            </div>
+          </div>
+          <!-- SINGLE ACCORDION ITEM END--------------------------------- -->
+
+        </div>
+        <!-- ACCORDION END ------------------------------------------- -->
+      </div>
+      <!-- SINGLE ROW ------------------------------------------------------- -->
+
+    </div>
+    <!-- GREETING CARD ================================================================== -->
+
 {% endif %}
+
 
 <div class="container">
   <div class="row">
