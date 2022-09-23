@@ -1,6 +1,8 @@
 # from contextlib import redirect_stderr
 # from email import message
 
+from calendar import calendar
+import datetime
 from django.shortcuts import render, redirect
 from .models import Stock
 from .models import Trade
@@ -41,6 +43,9 @@ def trade(request):
     API_SECRET = "dOVfXJolecFXd5jFeLtAAJ4hp7FCDk6mkOW17ScE"
     BASE_URL = "https://paper-api.alpaca.markets"
     alpaca = trader.REST(API_KEY, API_SECRET, BASE_URL)
+
+    order_history = alpaca.list_orders()
+
     # if request.method == "POST":
     #     form = TradeForm(request.POST or None)
 
@@ -50,7 +55,7 @@ def trade(request):
     #         return redirect('trade')
     # else:
     #     trades = Trade.objects.all()
-    #     return render(request, 'trade.html', {'trades': trades})
+    #     return render(request, 'trade.html', {'trades': trades, 'order_history': order_history})
     
     if request.method == "POST":
         form = TradeForm(request.POST or None)
@@ -66,8 +71,9 @@ def trade(request):
         trades = Trade.objects.all()
         output = []
 
-        for trade in trades:
-            # order = alpaca.submit_order(trade.symbol, trade.qty)
+        for api_trade in trades:
+            order = alpaca.submit_order(api_trade.symbol, api_trade.qty)
+            quote = alpaca.get_latest_quote(api_trade.symbol)
 
             try:
                 api = json.loads(order.content)
@@ -75,7 +81,7 @@ def trade(request):
             except Exception as e:
                 api = "TRADE ERROR"
 
-        return render(request, 'trade.html', {'trades': trades, 'output': output})
+        return render(request, 'trade.html', {'trades': trades, 'output': output, 'api_trade': api_trade, 'order_history': order_history, 'quote': quote})
     
     
 
@@ -91,10 +97,13 @@ def about(request):
     alpaca = trader.REST(API_KEY, API_SECRET, BASE_URL)
 
     account_call = alpaca.get_account()
-    account_call = alpaca.get_account()
     positions = alpaca.list_positions()
+    clock = alpaca.get_clock()
+    calendar = alpaca.get_calendar(start='2022-09-01', end=datetime.datetime.now() )
+    history = alpaca.get_portfolio_history()
+    orders = alpaca.list_orders()
 
-    return render(request, 'about.html', {'account_call': account_call, 'positions': positions,})
+    return render(request, 'about.html', {'account_call': account_call, 'positions': positions,"clock": clock, "calendar": calendar, "history": history, "orders": orders,})
 
 def add_stock(request):
     import requests

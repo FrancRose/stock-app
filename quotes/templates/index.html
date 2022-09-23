@@ -3,6 +3,7 @@
 
 {% if ticker %}
     {{ ticker }}
+    <h1>Hello</h1>
 {% endif %}
 
 <div class="container">
@@ -36,12 +37,11 @@
 
     </div>
     <div class="col-9">
-      <div class="font-monospace text-center text-decoration-underline mb-2"><h1>LATEST HEADLINES</h1></div>
       {% if news == "NEWS ERROR"%}
-        There was an error searching the submitted ticker symbol, please try your search again
+      There was an error searching the submitted ticker symbol, please try your search again
       {% else %}
-        {% for list_item in news %}
-          
+      <div class="font-monospace text-center text-decoration-underline mb-2"><h1>LATEST HEADLINES</h1></div>
+      {% for list_item in news %}
           <div class="card mb-3">
             <img src={{ list_item.image }} class="card-img-top" alt="...">
             <div class="card-body">

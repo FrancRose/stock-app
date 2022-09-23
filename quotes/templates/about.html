@@ -2,19 +2,259 @@
 
 {% block content %}
 
-<h1>Account</h1>
+<section>
+
+    <div class="row">
+
+        <!-- USER PROFILE ============================================================= -->
+        <div class="col-lg-4">
+            <!-- USER INFO ----------------------------------------------------------- -->
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <img src="https://i.pinimg.com/originals/de/e1/de/dee1ded8b4db52685cc4c07cad75222b.jpg" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                    <h5 class="my-3">User Name</h5>
+                    <p class="text-muted mb-1">Account Status: {{ account_call.status }}</p>
+                    <p class="text-muted mb-4">Currency: ${{ account_call.currency }}</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <button type="button" class="btn btn-secondary">Trade</button>
+                        <button type="button" class="btn btn-outline-secondary ms-1">Logout</button>
+                    </div>
+                </div>
+            </div>
+            <!-- USER INFO ----------------------------------------------------------- -->
+
+            <!-- ACCOUNT INFO ------------------------------------------------------ -->
+            <div><h3>Account Info:</h3></div> 
+            <div class="card mb-4 mb-lg-0">
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush rounded-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">Account Number:</p>
+                            <p class="mb-0">{{ account_call.account_number }}</p>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">Day Trader:</p>
+                            <p class="mb-0">{{ account_call.pattern_day_trader }}</p>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">Shorting Enabled:</p>
+                            <p class="mb-0">{{ account_call.shorting_enabled }}</p>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">Trading Blocked:</p>
+                            <p class="mb-0">{{ account_call.trading_blocked }}</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">Transfers Blocked:</p>
+                            <p class="mb-0">{{ account_call.transfers_blocked }}</p>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">Trading Suspended by User:</p>
+                            <p class="mb-0">{{ account_call.trade_suspended_by_user }}</p>
+                        </li>
+                        
+                </div>
+            </div>
+            <!-- ACCOUNT INFO ------------------------------------------------------ -->
+        </div>
+        <!-- USER PROFILE ============================================================= -->
+    
+        <div class="col-lg-8">
+            <!-- ACCOUNT FINANCIALS =================================================== -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Balance:</p>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ account_call.cash }}</p>
+                        </div>
+                    </div>
+
+                <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Portfolio Value:</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ account_call.equity }}</p>
+                        </div>
+                    </div>
+
+                <hr>
+                
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Value @ Previous Close:</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ account_call.last_equity }}</p>
+                    </div>
+                </div>
+
+                <hr>
+                
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Buying Power:</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ account_call.buying_power }}</p>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Day Trading Power:</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ account_call.daytrading_buying_power }}</p>
+                    </div>
+                </div>
+                
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Long Market Value:</p>
+                    </div>
+
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ account_call.long_market_value }}</p>
+                    </div>
+                </div>
+                
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Short Market Value:</p>
+                    </div>
+
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ account_call.short_market_value }}</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- ACCOUNT FINANCIALS =================================================== -->
+
+            <!-- OPEN STOCK POSITIONS ================================================= -->
+            <div class="row ">
+                <div><h3>Open Positions:</h3></div> 
+                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
+                {% for item in positions %} 
+                <div class="col-md-6 mb-3">
+                            
+                    <div class="card mb-4 mb-md-0">
+                        <div class="card-body">
+                            <p class="mb-4"><span class="text-success font-italic me-1">symbol</span> {{ item.symbol }}</p>
+
+                            <p class="mb-1" style="font-size: .77rem;">Shares:</p>
+                            <div>
+                                <p>{{ item.qty }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Market Value:</p>
+                            <div>
+                                <p>{{ item.market_value }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Average Price:</p>
+                            <div>
+                                <p>{{ item.avg_entry_price }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Performance Today:</p>
+                            <div>
+                                <p>{{ item.change_today }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Exchange:</p>
+                            <div>
+                                <p>{{ item.exchange }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
+                
+                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
+                <!-- <div class="col-md-6">
+                    <div class="card mb-4 mb-md-0">
+                        <div class="card-body">
+                            <p class="mb-4"><span class="text-success font-italic me-1">symbol</span> {{ positions.1.symbol }}</p>
+
+                            <p class="mb-1" style="font-size: .77rem;">Shares:</p>
+                            <div>
+                                <p>{{ positions.1.qty }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Market Value:</p>
+                            <div>
+                                <p>{{ positions.1.market_value }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Average Price:</p>
+                            <div>
+                                <p>{{ positions.1.avg_entry_price }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Performance Today:</p>
+                            <div>
+                                <p>{{ positions.1.change_today }}</p>
+                            </div>
+
+                            <p class="mb-1" style="font-size: .77rem;">Exchange:</p>
+                            <div>
+                                <p>{{ positions.1.exchange }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+                <!-- INDIVIDUAL POSITION ----------------------------------------------- -->
+                
+            </div>
+            <!-- OPEN STOCK POSITIONS ================================================= -->
+        </div>
+    </div>
+    
+</section>
+
+<!-- <h1>Account</h1>
 
 Account:
     
-{{ account_call }}
+
 <br><br>
-Buying Power:
-{{ account_call.buying_power }}
+{{ clock }}
 <br><br>
-Positions:
-    
-{{ positions }}
+{% for item in calendar %} 
+    {{ item }} <br>
+{% endfor %}
+{{ calendar }}
+{{ orders }} <br><br> -->
+
+<!-- {{ positions }}
+
+{% for item in positions %} 
+    ||{{ item }} <br> <br>
+{% endfor %}
 <br><br>
+
+{{ history }} -->
 
 
 
